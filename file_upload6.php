@@ -31,12 +31,17 @@ $watermarkPre = $uploadDir . uniqid("watermark_". true);
 $types = array('image/jpg', 'image/jpeg');
 
 // Listen for new upload file being added to "temp" directory and copy it to "upload" directory
-if (!empty($_POST)) {
-if (in_array($_FILES["upload"]["type"], $types)) {
-move_uploaded_file($_FILES["upload"]["tmp_name"], $uploadPre . "_" . $_FILES["upload"]["name"]);
-} else {
-    echo '<script type="text/javascript">alert("Image must be a .JPG or .JPEG");</script>';
-}}
+if (!empty($_POST))
+{
+    if (in_array($_FILES["upload"]["type"], $types)) 
+    {
+         move_uploaded_file($_FILES["upload"]["tmp_name"], $uploadPre . "_" . $_FILES["upload"]["name"]);
+     } 
+    else 
+    {
+         echo '<script type="text/javascript">alert("Image must be a .JPG or .JPEG");</script>';
+     }
+}
 // Figure out a way to make unique ID or timestamp
 $imagePath = $uploadPre . "_" . $_FILES["upload"]["name"];
 $watermarkPath = $watermarkPre . "_" . $_FILES["upload"]["name"];
@@ -51,9 +56,8 @@ echo <<<END_OF_FORM
 </head>
 <body>
 <div id="header">
-<h1>Watermarking Application</h1>
+    <h1>Watermarking Application</h1>
 </div>
-
     <form action="/file_upload6.php" method="POST" enctype="multipart/form-data">
         <p class="required">* Image must be a <b><i>.jpg</i></b> or <b><i>.jpeg</i></b> and more than <b><i>500px<i></b> wide</p>
             <div class="fieldSet">
@@ -66,7 +70,7 @@ echo <<<END_OF_FORM
     </form>
 <br/>
 <center>
-<img id="displayWatermark"  src="$watermarkPath" alt="Please upload an image...">
+    <img id="displayWatermark"  src="$watermarkPath" alt="Please upload an image...">
 </center>
 <br/>
 END_OF_FORM;
@@ -112,13 +116,16 @@ echo "Margin Bottom: " . $marginBottom;
 echo "</fieldset><br/><br/>";
 
 // Define new height and width for final merged image
-if($width >= 500) {
+if($width >= 500)
+{
     $newWidth = 500;
     $newHeight = ($height / $width) * $newWidth; // <- This code calculates height to preserve aspect-ratio
-} else {
+}
+else 
+{
     $newWidth = $width;
     $newHeight = $height;
-};
+}
 
 echo "<fieldset><legend>Scaled</legend>";
 echo "Image Width: " . $newWidth . "<br/>";
